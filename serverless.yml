@@ -1,0 +1,102 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: lightning-talk
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: python3.7
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+  stackName: ${self:custom.service.name}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+
+functions:
+  create:
+    handler: lightningtalk/create_talk.handler
+    events:
+      - http:
+          path: create_talk
+          method: post
+          cors: false
+
+plugins:
+  - serverless-finch
+
+custom:
+  client:
+    bucketName: "${cf:lightning-talk-${self:provider.stage}.AcccountId}-lightning-talk-static"
+    distributionFolder: client/dist
+  service:
+    name: lightning-talk-${self:provider.stage}
+
+# you can add CloudFormation resource templates here
+resources:
+  Outputs:
+    AcccountId:
+      Value: !Ref "AWS::AccountId"
+      Export:
+        Name: "AcccountId"
+  Resources:
+    ApiGatewayStaticFileResource:
+      Type: AWS::ApiGateway::Resource
+      Properties:
+        ParentId: !GetAtt "ApiGatewayRestApi.RootResourceId"
+        PathPart: "{proxy+}"
+        RestApiId: !Ref "ApiGatewayRestApi"
+    ApiGatewayStaticFileMethod:
+      Type: AWS::ApiGateway::Method
+      Properties:
+        HttpMethod: "GET"
+        AuthorizationType: "NONE"
+        RequestParameters:
+          method.request.path.proxy: true
+        Integration:
+          IntegrationHttpMethod: "GET"
+          Type: "HTTP_PROXY"
+          Uri: !Sub "http://074375733767-lightning-talk-static.s3-website-us-east-1.amazonaws.com/{proxy}"
+          RequestParameters:
+            integration.request.path.proxy: method.request.path.proxy
+        ResourceId: !Ref "ApiGatewayStaticFileResource"
+        RestApiId: !Ref "ApiGatewayRestApi"
+    TodosDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+
