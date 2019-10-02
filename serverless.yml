@@ -51,7 +51,7 @@ plugins:
 
 custom:
   client:
-    bucketName: "${cf:lightning-talk-${self:provider.stage}.AcccountId}-lightning-talk-static"
+    bucketName: "074375733767-lightning-talk-static"
     distributionFolder: client/dist
   service:
     name: lightning-talk-${self:provider.stage}
