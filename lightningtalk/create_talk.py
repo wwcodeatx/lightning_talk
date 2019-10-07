@@ -6,19 +6,24 @@ import uuid
 from datetime import datetime
 
 import boto3
-dynamodb = boto3.resource('dynamodb')
 
 
 def handler(event, context):
+    if event.get('requestContext').get('accountId') == 'offlineContext_accountId':
+        print("local development")
+        dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
+    else:
+        dynamodb = boto3.resource('dynamodb')
+
     data = json.loads(event['body'])
-
     timestamp = str(datetime.utcnow().timestamp())
-
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
 
     item = {
         'id': str(uuid.uuid1()),
-        'title': data['title'],
+        'talk_date': data.get('talk_date'),
+        'title': data.get('title'),
+        'speaker_name': data.get('speaker_name'),
         'twitter_handle': data.get('twitter_handle'),
         'created_at': timestamp,
     }
