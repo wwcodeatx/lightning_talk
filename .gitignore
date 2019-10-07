@@ -17,6 +17,8 @@ var/
 *.egg
 .idea
 node_modules/
+__pycache__/
+.dynamodb/
 
 # Serverless directories
 .serverless

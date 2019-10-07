@@ -47,45 +47,18 @@ functions:
           cors: false
 
 plugins:
-  - serverless-finch
+  - serverless-apig-s3
 
 custom:
-  client:
-    bucketName: "074375733767-lightning-talk-static"
-    distributionFolder: client/dist
+  apigs3:
+    dist: client/dist
   service:
-    name: lightning-talk-${self:provider.stage}
+    name: wwcatx-lightning-talk
 
 # you can add CloudFormation resource templates here
 resources:
-  Outputs:
-    AcccountId:
-      Value: !Ref "AWS::AccountId"
-      Export:
-        Name: "AcccountId"
   Resources:
-    ApiGatewayStaticFileResource:
-      Type: AWS::ApiGateway::Resource
-      Properties:
-        ParentId: !GetAtt "ApiGatewayRestApi.RootResourceId"
-        PathPart: "{proxy+}"
-        RestApiId: !Ref "ApiGatewayRestApi"
-    ApiGatewayStaticFileMethod:
-      Type: AWS::ApiGateway::Method
-      Properties:
-        HttpMethod: "GET"
-        AuthorizationType: "NONE"
-        RequestParameters:
-          method.request.path.proxy: true
-        Integration:
-          IntegrationHttpMethod: "GET"
-          Type: "HTTP_PROXY"
-          Uri: !Sub "http://074375733767-lightning-talk-static.s3-website-us-east-1.amazonaws.com/{proxy}"
-          RequestParameters:
-            integration.request.path.proxy: method.request.path.proxy
-        ResourceId: !Ref "ApiGatewayStaticFileResource"
-        RestApiId: !Ref "ApiGatewayRestApi"
-    TodosDynamoDbTable:
+    DynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
