@@ -47,9 +47,14 @@ functions:
           cors: false
 
 plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
   - serverless-apig-s3
 
 custom:
+  dynamodb:
+    stages:
+      - dev
   apigs3:
     dist: client/dist
   service:
