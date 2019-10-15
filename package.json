@@ -6,9 +6,11 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
-  "dependencies": {},
+  "dependencies": {
+    "mocha": "^6.2.1"
+  },
   "devDependencies": {
     "fullstack-serverless": "^0.7.0",
     "serverless-apig-s3": "^2.0.0",

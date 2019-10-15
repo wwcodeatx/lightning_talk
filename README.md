@@ -9,15 +9,15 @@ The project is currently using:
  * HTML, CSS and vanilla javascript front-end
  * [Serverless](https://serverless.com/) architecture back-end, with AWS lambda in Python
  * DynamoDB as data store
- 
+
 #### Setup the project
 1. Install serverless cli `npm install -g serverless`
 1. Clone this repo, and `cd` into this repo
 1. Install node packages: `npm install`
 1. Create a Python virtual environment: `python3 -m venv env`
 1. Activate the Python virtual environment: `source env/bin/activate`
-1. Install Python packages: `pip install -r requirement.txt`
- 
+1. Install Python packages: `pip install -r requirements.txt`
+
 #### Run the project locally
 1. Make sure you have docker `docker pull lambci/lambda`
 1. Install local `sls dynamodb install`
@@ -26,7 +26,7 @@ The project is currently using:
 
 #### Deploy this project
 To deploy this project, you need to:
-1. Create a AWS credentials. Full guide [here](https://serverless.com/framework/docs/providers/aws/guide/credentials/), quick summary below: 
+1. Create a AWS credentials. Full guide [here](https://serverless.com/framework/docs/providers/aws/guide/credentials/), quick summary below:
     - Sign up for an AWS account [here](https://aws.amazon.com/)
     - Create an user and access key at the [Identity and access management (IAM) dashboard](https://console.aws.amazon.com/iam/home?region=us-east-1#/users)
     - Get the access key ID and secret access key
@@ -43,7 +43,7 @@ To deploy this project, you need to:
 
     .
     ├── client                  # All the frontend code goes here
-    │   └── dist                # The "built folder" for frontend code. 
+    │   └── dist                # The "built folder" for frontend code.
     ├── lightningtalk           # Lambda code
     ├── package.json            # node package.json
     ├── serverless.yml          # Serverless framework configurations. Extra cloudformation configs are here too
