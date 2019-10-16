@@ -2,12 +2,15 @@
 
 function createTalk(event) {
     event.preventDefault()
-    const title = document.forms.talk_info.elements[0].value
-    const twitter_handle = document.forms.talk_info.elements[1].value
+    const { elements: fields } = document.forms.talk_info
+    const title = fields[0].value
+    const speaker_name = fields[1].value
+    const twitter_handle = fields[2].value
     const xmlHttp = new XMLHttpRequest()
     xmlHttp.open("POST", "/dev/create_talk", false)
     const body = {
         "title": title,
+        "speaker_name": speaker_name,
         "twitter_handle": twitter_handle
     }
     xmlHttp.send(JSON.stringify(body));
