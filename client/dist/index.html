@@ -3,7 +3,7 @@
 
 <head>
     <title>lightning talk</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="./style.css">
   </head>
 
   <body>
@@ -15,10 +15,13 @@
         <input type=text name="speaker_name"><br>
         <label htmlfor="twitter_handle">Your Twitter handle:</label><br>
         <input type=text name="twitter_handle"><br>
+        <label htmlfor="talk_date">Select a date for your talk:</label><br>
+        <select name="talk_date"></select>
         <button>Create Talk</button>
       </form>
       <p id="message">Click on the button to sign up for you talk</p>
-      <script src="assets/script.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+      <script src="./script.js"></script>
 </body>
 
 </html>
