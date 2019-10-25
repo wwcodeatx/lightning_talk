@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>lightning talk</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/style.css" />
   </head>
 
   <body>
     <h1>Lightning Talk Sign-up</h1>
     <form name="talk_info" onsubmit="return createTalk(event)">
-        <label htmlfor="title">Title of your talk:</label><br>
-        <input type=text name="title"><br>
-        <label htmlfor="speaker_name">Your name:</label><br>
-        <input type=text name="speaker_name"><br>
-        <label htmlfor="twitter_handle">Your Twitter handle:</label><br>
-        <input type=text name="twitter_handle"><br>
-        <button>Create Talk</button>
-      </form>
-      <p id="message">Click on the button to sign up for you talk</p>
-      <script src="assets/script.js"></script>
-</body>
-
+      <label htmlfor="title"><span class="required">*</span>Title of your talk:</label><br>
+      <input type="text" onkeyup="inputChangeHandler()" name="title"><br>
+      <label htmlfor="speaker_name"><span class="required">*</span>Your name:</label><br>
+      <input type="text" onkeyup="inputChangeHandler()" name="speaker_name"><br>
+      <label htmlfor="twitter_handle">Your Twitter handle:</label><br>
+      <input type="text" onkeyup="inputChangeHandler()" name="twitter_handle"><br>
+      <button type="submit" disabled>Create Talk</button>
+    </form>
+    <p id="message">Click on the button to sign up for your talk.</p>
+    <script src="assets/script.js"></script>
+  </body>
 </html>
