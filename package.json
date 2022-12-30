@@ -9,7 +9,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "mocha": "^6.2.1"
+    "mocha": "^10.2.0"
   },
   "devDependencies": {
     "fullstack-serverless": "^0.7.0",
