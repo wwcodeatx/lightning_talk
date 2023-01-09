@@ -15,7 +15,7 @@
     "fullstack-serverless": "^0.7.0",
     "serverless-apig-s3": "^2.0.0",
     "serverless-dynamodb-local": "^0.2.38",
-    "serverless-offline": "^5.12.0",
+    "serverless-offline": "^12.0.4",
     "serverless-static": "^1.0.0"
   }
 }
